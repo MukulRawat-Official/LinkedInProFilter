@@ -1,0 +1,111 @@
+// ==UserScript==
+// @name         LinkedIn Company ID Crawler
+// @match        *://*.linkedin.com/*
+// @grant        GM_setValue
+// @grant        GM_getValue
+// ==/UserScript==
+
+(function () {
+    'use strict';
+
+    const companies = [
+        "Flipkart","Swiggy","Zomato","Razorpay","PhonePe","CRED","Ola","Pine Labs",
+        "Databricks","MongoDB","OpenAI","Snowflake","Glean","Cloudflare",
+        "Graviton","AlphaGrep","Quadeye","Tower Research","APT Portfolio","WorldQuant",
+        "IMC Trading","Optiver","Jane Street","Citadel",
+        "Stripe","Rippling","Plaid","Coinbase","Rubrik","Cohesity","Atlassian",
+        "Uber","Airbnb","Salesforce","PayPal",
+        "Google","Microsoft","Amazon","Meta","Apple","Netflix",
+        "D. E. Shaw","Goldman Sachs","JPMorgan","Morgan Stanley","Barclays","Wells Fargo"
+    ];
+
+    let idx = GM_getValue("idx", 0);
+    let results = GM_getValue("results", {});
+
+    console.log("Current idx:", idx);
+
+    // Start manually from LinkedIn homepage
+    if (location.pathname === "/feed/" || location.pathname === "/feed") {
+
+        location.href =
+            `https://www.linkedin.com/search/results/companies/?keywords=${encodeURIComponent(companies[idx])}`;
+
+        return;
+    }
+
+    // Search page
+    if (location.href.includes("/search/results/companies")) {
+
+        setTimeout(() => {
+
+            const firstLink = document.querySelector('a[href*="/company/"]');
+
+            if (!firstLink) {
+                console.log("No result for", companies[idx]);
+
+                results[companies[idx]] = "NOT_FOUND";
+
+                GM_setValue("results", results);
+
+                idx++;
+                GM_setValue("idx", idx);
+
+                location.href = "https://www.linkedin.com/feed/";
+                return;
+            }
+
+            location.href = firstLink.href;
+
+        }, 3000);
+
+        return;
+    }
+
+    // Company page
+    if (location.pathname.includes("/company/")) {
+
+        setTimeout(() => {
+
+            const match =
+                document.documentElement.innerHTML.match(
+                    /urn:li:(?:fsd_)?company:(\d+)/
+                );
+
+            results[companies[idx]] =
+                match ? match[1] : "NOT_FOUND";
+
+            console.log(
+                companies[idx],
+                "=>",
+                results[companies[idx]]
+            );
+
+            GM_setValue("results", results);
+
+            idx++;
+            GM_setValue("idx", idx);
+
+            if (idx >= companies.length) {
+
+                console.log("DONE");
+                console.log(results);
+
+                const blob = new Blob(
+                    [JSON.stringify(results, null, 2)],
+                    { type: "application/json" }
+                );
+
+                const a = document.createElement("a");
+                a.href = URL.createObjectURL(blob);
+                a.download = "linkedin_company_ids.json";
+                a.click();
+
+                return;
+            }
+
+            location.href = "https://www.linkedin.com/feed/";
+
+        }, 3000);
+    }
+
+})();
