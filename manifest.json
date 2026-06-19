@@ -1,11 +1,14 @@
 {
   "manifest_version": 3,
   "name": "LinkedIn Pro Job Filter",
-  "version": "4.0",
-  "description": "Advanced multi-profile query optimizer with dynamic entity extraction.",
-  "permissions": ["tabs", "storage", "scripting", "activeTab"],
+  "version": "5.0",
+  "description": "Advanced multi-profile query optimizer with modular Tech & Finance streams.",
+  "permissions": ["tabs", "storage", "scripting", "activeTab", "webNavigation"],
   "host_permissions": ["*://*.linkedin.com/jobs/search/*"],
   "action": {
     "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
   }
 }

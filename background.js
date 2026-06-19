@@ -6,20 +6,25 @@ chrome.webNavigation.onBeforeNavigate.addListener(async (details) => {
     url.hostname.includes("linkedin.com") &&
     url.pathname.includes("/jobs/search/")
   ) {
-    // Grab the user's saved settings from the popup menu
-    const settings = await chrome.storage.local.get([
-      "timeFilter",
-      "companyIds",
-      "experience",
+    // Grab the full profile data object
+    const data = await chrome.storage.local.get([
+      "profiles",
+      "lastActiveProfile",
     ]);
 
+    // Safety check: Ensure profiles exist before attempting to apply them
+    if (!data.profiles || !data.lastActiveProfile) return;
+
+    // Isolate the settings of the currently active workspace
+    const settings = data.profiles[data.lastActiveProfile];
     let params = new URLSearchParams(url.search);
     let changed = false;
 
-    // Apply 24-hour and Most Recent rules if the toggle is ON
+    // Apply Time Filter and Sort
     if (settings.timeFilter) {
-      if (params.get("f_TPR") !== "r86400") {
-        params.set("f_TPR", "r86400");
+      let targetTime = "r" + settings.timeFilter;
+      if (params.get("f_TPR") !== targetTime) {
+        params.set("f_TPR", targetTime);
         changed = true;
       }
       if (params.get("sortBy") !== "DD") {
@@ -28,18 +33,18 @@ chrome.webNavigation.onBeforeNavigate.addListener(async (details) => {
       }
     }
 
-    // Apply Target Companies if the text box isn't empty
-    if (settings.companyIds) {
-      let cleanIds = settings.companyIds.replace(/\s+/g, ""); // Remove any accidental spaces
+    // Apply Target Companies from the active profile's "famous" array
+    if (settings.famous && settings.famous.length > 0) {
+      let cleanIds = settings.famous.join(",");
       if (params.get("f_C") !== cleanIds) {
         params.set("f_C", cleanIds);
         changed = true;
       }
     }
 
-    // Apply Experience Levels if any boxes are checked
+    // Apply Experience Levels
     if (settings.experience && settings.experience.length > 0) {
-      let expString = settings.experience.join(","); // Joins multiple selections into "2,3" format
+      let expString = settings.experience.join(",");
       if (params.get("f_E") !== expString) {
         params.set("f_E", expString);
         changed = true;

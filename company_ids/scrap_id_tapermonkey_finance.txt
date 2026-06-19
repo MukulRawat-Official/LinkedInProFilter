@@ -1,0 +1,82 @@
+// ==UserScript==
+// @name         LinkedIn Finance Company ID Crawler
+// @match        *://*.linkedin.com/*
+// @grant        GM_setValue
+// @grant        GM_getValue
+// ==/UserScript==
+
+(function () {
+    'use strict';
+
+    // The 52 Finance Companies extracted from your data
+    const companies = [
+        "McKinsey", "BCG", "Bain & Co", "Deloitte", "EY", "PwC", "KPMG", "Oliver Wyman", "Kearney", "Roland Berger", "L.E.K.", "Alvarez & Marsal", "Strategy&",
+        "Goldman Sachs", "JPMorgan", "Morgan Stanley", "Citi", "Bank of America", "Barclays", "UBS", "Deutsche Bank", "HSBC", "BNP Paribas", "Lazard", "Evercore", "Jefferies", "Nomura",
+        "Blackstone", "KKR", "Carlyle", "BlackRock", "Vanguard", "Apollo Global", "Sequoia (Peak XV)", "Warburg Pincus", "General Atlantic", "SoftBank", "Fidelity", "PIMCO", "Citadel", "Point72", "Brookfield",
+        "HDFC Bank", "ICICI Bank", "Kotak Bank", "Axis Bank", "Bajaj Finserv", "Zerodha", "SBI", "Groww", "IDFC FIRST", "Motilal Oswal"
+    ];
+
+    let idx = GM_getValue("idx", 0);
+    let results = GM_getValue("results", {});
+
+    console.log("Current idx:", idx);
+
+    // Start manually from LinkedIn homepage
+    if (location.pathname === "/feed/" || location.pathname === "/feed") {
+        location.href = `https://www.linkedin.com/search/results/companies/?keywords=${encodeURIComponent(companies[idx])}`;
+        return;
+    }
+
+    // Search page
+    if (location.href.includes("/search/results/companies")) {
+        setTimeout(() => {
+            const firstLink = document.querySelector('a[href*="/company/"]');
+            
+            if (!firstLink) {
+                console.log("No result for", companies[idx]);
+                results[companies[idx]] = "NOT_FOUND";
+                
+                GM_setValue("results", results);
+                idx++;
+                GM_setValue("idx", idx);
+                
+                location.href = "https://www.linkedin.com/feed/";
+                return;
+            }
+            
+            location.href = firstLink.href;
+        }, 3000);
+        
+        return;
+    }
+
+    // Company page
+    if (location.pathname.includes("/company/")) {
+        setTimeout(() => {
+            const match = document.documentElement.innerHTML.match(/urn:li:(?:fsd_)?company:(\d+)/);
+            
+            results[companies[idx]] = match ? match[1] : "NOT_FOUND";
+            console.log(companies[idx], "=>", results[companies[idx]]);
+            
+            GM_setValue("results", results);
+            idx++;
+            GM_setValue("idx", idx);
+
+            if (idx >= companies.length) {
+                console.log("DONE");
+                console.log(results);
+
+                const blob = new Blob([JSON.stringify(results, null, 2)], { type: "application/json" });
+                const a = document.createElement("a");
+                a.href = URL.createObjectURL(blob);
+                a.download = "linkedin_finance_company_ids.json";
+                a.click();
+
+                return;
+            }
+
+            location.href = "https://www.linkedin.com/feed/";
+        }, 3000);
+    }
+
+})();

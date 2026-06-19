@@ -2,242 +2,41 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <style>
-      :root {
-        --bg-main: #f4f5f7;
-        --bg-card: #ffffff;
-        --text-main: #172b4d;
-        --text-muted: #5e6c84;
-        --border-color: #dfe1e6;
-        --accent-color: #0052cc;
-        --accent-hover: #003eb3;
-        --focus-ring: rgba(0, 82, 204, 0.2);
-        --success-color: #00875a;
-      }
-
-      body {
-        width: 380px;
-        max-height: 600px;
-        margin: 0;
-        padding: 16px;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        background-color: var(--bg-main);
-        color: var(--text-main);
-        font-size: 13px;
-        overflow-y: auto;
-      }
-
-      .header {
-        margin-bottom: 16px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid var(--border-color);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-      .header h2 {
-        margin: 0;
-        font-size: 15px;
-        font-weight: 600;
-        color: var(--text-main);
-        letter-spacing: -0.3px;
-      }
-
-      .section-card {
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        border-radius: 8px;
-        padding: 14px;
-        margin-bottom: 12px;
-        box-shadow: 0 1px 3px rgba(9, 30, 66, 0.04);
-      }
-      .section-title {
-        font-size: 11px;
-        text-transform: uppercase;
-        letter-spacing: 0.6px;
-        color: var(--text-muted);
-        font-weight: 700;
-        margin-bottom: 12px;
-      }
-
-      .form-group {
-        margin-bottom: 12px;
-      }
-      label {
-        display: block;
-        font-size: 12px;
-        font-weight: 600;
-        margin-bottom: 6px;
-        color: var(--text-main);
-      }
-
-      select,
-      input[type="text"] {
-        width: 100%;
-        padding: 8px 10px;
-        border: 1px solid var(--border-color);
-        border-radius: 5px;
-        font-size: 13px;
-        box-sizing: border-box;
-        transition: all 0.2s ease;
-        background-color: #fafbfc;
-        color: var(--text-main);
-      }
-      select:focus,
-      input[type="text"]:focus {
-        outline: none;
-        border-color: var(--accent-color);
-        background-color: #fff;
-        box-shadow: 0 0 0 3px var(--focus-ring);
-      }
-
-      .toggle-row {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 8px;
-        padding: 6px;
-        background: #fafbfc;
-        border-radius: 4px;
-        border: 1px solid var(--border-color);
-      }
-      .toggle-row label {
-        margin-bottom: 0;
-        font-weight: 500;
-        font-size: 12px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        width: 100%;
-      }
-      .toggle-row input {
-        margin-right: 8px;
-        accent-color: var(--accent-color);
-        width: 14px;
-        height: 14px;
-      }
-
-      .checkbox-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
-      }
-      .checkbox-label {
-        display: flex;
-        align-items: center;
-        font-size: 12px;
-        font-weight: 500;
-        cursor: pointer;
-        color: #344563;
-      }
-      .checkbox-label input {
-        margin-right: 8px;
-        accent-color: var(--accent-color);
-        cursor: pointer;
-      }
-
-      details {
-        background: #fafbfc;
-        border: 1px solid var(--border-color);
-        border-radius: 5px;
-        margin-bottom: 6px;
-        overflow: hidden;
-      }
-      summary {
-        font-size: 12px;
-        font-weight: 600;
-        padding: 10px;
-        cursor: pointer;
-        user-select: none;
-        color: var(--text-main);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-      summary:hover {
-        background: #f4f5f7;
-      }
-      summary::-webkit-details-marker {
-        display: none;
-      }
-
-      .summary-title {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        pointer-events: none;
-      }
-      .select-all-wrapper {
-        display: flex;
-        align-items: center;
-        font-size: 11px;
-        font-weight: 600;
-        color: var(--accent-color);
-        gap: 4px;
-      }
-      .select-all-wrapper input {
-        accent-color: var(--accent-color);
-        cursor: pointer;
-        margin: 0;
-      }
-
-      .inner-grid {
-        padding: 10px;
-        border-top: 1px solid var(--border-color);
-        background: #fff;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
-        max-height: 160px;
-        overflow-y: auto;
-      }
-
-      .btn {
-        width: 100%;
-        padding: 10px 12px;
-        border: 1px solid transparent;
-        border-radius: 6px;
-        font-size: 13px;
-        font-weight: 600;
-        cursor: pointer;
-        box-sizing: border-box;
-        transition: all 0.2s ease;
-        margin-top: 8px;
-      }
-      .btn-primary {
-        background-color: var(--accent-color);
-        color: #ffffff;
-        margin-top: 16px;
-        box-shadow: 0 2px 4px rgba(0, 82, 204, 0.15);
-      }
-      .btn-primary:hover {
-        background-color: var(--accent-hover);
-        transform: translateY(-1px);
-      }
-
-      #status {
-        font-size: 12px;
-        font-weight: 600;
-        color: var(--success-color);
-        text-align: center;
-        margin-top: 8px;
-        min-height: 18px;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-      }
-    </style>
+    <link rel="stylesheet" href="popup.css" />
   </head>
   <body>
+    <!-- HEADER WITH THEME TOGGLE -->
     <div class="header">
-      <h2>⚡ Query Optimizer</h2>
+      <h2>💼 Linked Job Search Filter</h2>
+      <button id="themeToggle" class="theme-btn" title="Toggle Theme">
+        🌙
+      </button>
     </div>
 
-    <div class="form-group" style="margin-bottom: 16px">
-      <select id="profileSelect" style="font-weight: 600; margin-bottom: 6px">
-        <option value="profile1">Core Software Engineer</option>
-        <option value="profile2">Backend & Systems</option>
-        <option value="profile3">Machine Learning & AI</option>
-        <option value="profile4">Custom Slate</option>
+    <!-- CAREER STREAM TABS -->
+    <div class="career-stream-tabs">
+      <button type="button" id="tab-btech" class="stream-tab active">
+        Tech & SDE
+      </button>
+      <button type="button" id="tab-finance" class="stream-tab">
+        Finance & MBA
+      </button>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 16px; padding: 0 20px">
+      <select id="profileSelect" style="font-weight: 600; margin-bottom: 8px">
+        <option value="profile1" class="tech-opt">
+          Core Software Engineer
+        </option>
+        <option value="profile2" class="tech-opt">Backend & Systems</option>
+        <option value="profile3" class="tech-opt">Machine Learning & AI</option>
+        <option value="profile4" class="tech-opt">Custom Slate</option>
+        <option value="profile5" class="finance-opt" style="display: none">
+          Investment Banking Analyst
+        </option>
+        <option value="profile6" class="finance-opt" style="display: none">
+          Management Consulting
+        </option>
       </select>
       <input
         type="text"
@@ -255,278 +54,42 @@
           placeholder="Target Role (e.g. Backend Engineer)"
         />
       </div>
-
       <div class="toggle-row">
         <label
-          ><input type="checkbox" id="strictTitle" /> Strict Exact Match
-          (Prevents role drift)</label
+          ><input type="checkbox" id="strictTitle" /> Strict Exact Match</label
         >
       </div>
       <div class="toggle-row">
         <label
-          ><input type="checkbox" id="blockAgencies" checked /> Block WITCH &
-          Staffing Agencies</label
+          ><input type="checkbox" id="blockAgencies" checked /> Block Staffing
+          Agencies</label
         >
       </div>
-
-      <div class="form-group" style="margin-top: 10px">
+      <div class="form-group" style="margin-top: 8px">
         <input
           type="text"
           id="location"
           placeholder="Location (e.g. Bengaluru, India)"
         />
       </div>
-      <div class="form-group" style="margin-top: 10px">
+      <div class="form-group" style="margin-top: 8px">
         <select id="timeFilter">
           <option value="3600">Past 1 Hour</option>
           <option value="21600">Past 6 Hours</option>
           <option value="86400">Past 24 Hours</option>
-          <option value="604800" selected>Past Week (Recommended)</option>
+          <option value="604800" selected>Past Week</option>
         </select>
       </div>
     </div>
 
     <div class="section-card">
       <div class="section-title">Target Entities</div>
-
-      <!-- Group 1: Indian Unicorns -->
-      <details id="group-india">
-        <summary>
-          <span class="summary-title">🇮🇳 Indian Unicorns</span>
-          <span class="select-all-wrapper"
-            ><input type="checkbox" class="tier-select-all" /> All</span
-          >
-        </summary>
-        <div class="inner-grid">
-          <label class="checkbox-label">
-            <input type="checkbox" value="321062" class="famous-cb" /> Flipkart
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="9252341" class="famous-cb" /> Swiggy
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="422813" class="famous-cb" /> Zomato
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="3788927" class="famous-cb" /> Razorpay
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="10479149" class="famous-cb" /> PhonePe
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="14485479" class="famous-cb" /> Cred
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="2580522" class="famous-cb" /> Ola
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="554421" class="famous-cb" /> Pine Labs
-          </label>
-        </div>
-      </details>
-
-      <!-- Group 2: Data & AI -->
-      <details id="group-data">
-        <summary>
-          <span class="summary-title">🦄 Modern Data & AI</span>
-          <span class="select-all-wrapper"
-            ><input type="checkbox" class="tier-select-all" /> All</span
-          >
-        </summary>
-        <div class="inner-grid">
-          <label class="checkbox-label">
-            <input type="checkbox" value="3477522" class="famous-cb" />
-            Databricks
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="783611" class="famous-cb" /> MongoDB
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="11130470" class="famous-cb" /> OpenAI
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="3653845" class="famous-cb" />
-            Snowflake
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="74882602" class="famous-cb" /> Glean
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="407222" class="famous-cb" />
-            Cloudflare
-          </label>
-        </div>
-      </details>
-
-      <!-- Group 3: HFTs & Quant -->
-      <details id="group-hft">
-        <summary>
-          <span class="summary-title">📈 HFTs & Quant</span>
-          <span class="select-all-wrapper"
-            ><input type="checkbox" class="tier-select-all" /> All</span
-          >
-        </summary>
-        <div class="inner-grid">
-          <label class="checkbox-label">
-            <input type="checkbox" value="9329182" class="famous-cb" />
-            Graviton
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="2282504" class="famous-cb" />
-            AlphaGrep
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="10167707" class="famous-cb" /> Quadeye
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="36865" class="famous-cb" /> Tower
-            Research
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="2691313" class="famous-cb" /> APT
-            Portfolio
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="276383" class="famous-cb" />
-            WorldQuant
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="200030" class="famous-cb" /> IMC
-            Trading
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="13216" class="famous-cb" /> Optiver
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="1713404" class="famous-cb" /> Jane
-            Street
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="163056" class="famous-cb" /> Citadel
-          </label>
-        </div>
-      </details>
-
-      <!-- Group 4: Elite SaaS -->
-      <details id="group-saas">
-        <summary>
-          <span class="summary-title">💳 FinTech & Global SaaS</span>
-          <span class="select-all-wrapper"
-            ><input type="checkbox" class="tier-select-all" /> All</span
-          >
-        </summary>
-        <div class="inner-grid">
-          <label class="checkbox-label">
-            <input type="checkbox" value="2135371" class="famous-cb" /> Stripe
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="17988315" class="famous-cb" />
-            Rippling
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="2684737" class="famous-cb" /> Plaid
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="2857634" class="famous-cb" /> Coinbase
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="4840301" class="famous-cb" /> Rubrik
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="3750699" class="famous-cb" /> Cohesity
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="22688" class="famous-cb" /> Atlassian
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="1815218" class="famous-cb" /> Uber
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="309694" class="famous-cb" /> Airbnb
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="3185" class="famous-cb" /> Salesforce
-          </label>
-          <label class="checkbox-label">
-            <input type="checkbox" value="1482" class="famous-cb" /> PayPal
-          </label>
-        </div>
-      </details>
-
-      <!-- Group 5: FAANG -->
-      <details id="group-faang">
-        <summary>
-          <span class="summary-title">🏢 FAANG & Big Tech</span>
-          <span class="select-all-wrapper"
-            ><input type="checkbox" class="tier-select-all" /> All</span
-          >
-        </summary>
-        <div class="inner-grid">
-          <label class="checkbox-label"
-            ><input type="checkbox" value="1441" class="famous-cb" />
-            Google</label
-          >
-          <label class="checkbox-label"
-            ><input type="checkbox" value="1035" class="famous-cb" />
-            Microsoft</label
-          >
-          <label class="checkbox-label"
-            ><input type="checkbox" value="1586" class="famous-cb" />
-            Amazon</label
-          >
-          <label class="checkbox-label"
-            ><input type="checkbox" value="10667" class="famous-cb" />
-            Meta</label
-          >
-          <label class="checkbox-label"
-            ><input type="checkbox" value="162479" class="famous-cb" />
-            Apple</label
-          >
-          <label class="checkbox-label"
-            ><input type="checkbox" value="165158" class="famous-cb" />
-            Netflix</label
-          >
-        </div>
-      </details>
-
-      <!-- Group 6: Finance -->
-      <details id="group-finance">
-        <summary>
-          <span class="summary-title">🏦 Top Finance & Banks</span>
-          <span class="select-all-wrapper"
-            ><input type="checkbox" class="tier-select-all" /> All</span
-          >
-        </summary>
-        <div class="inner-grid">
-          <label class="checkbox-label"
-            ><input type="checkbox" value="2408262" class="famous-cb" /> D. E.
-            Shaw</label
-          >
-          <label class="checkbox-label"
-            ><input type="checkbox" value="1382" class="famous-cb" /> Goldman
-            Sachs</label
-          >
-          <label class="checkbox-label"
-            ><input type="checkbox" value="1067" class="famous-cb" />
-            JPMorgan</label
-          >
-          <label class="checkbox-label"
-            ><input type="checkbox" value="497017" class="famous-cb" /> Morgan
-            Stanley</label
-          >
-          <label class="checkbox-label"
-            ><input type="checkbox" value="1426" class="famous-cb" />
-            Barclays</label
-          >
-          <label class="checkbox-label"
-            ><input type="checkbox" value="1235" class="famous-cb" /> Wells
-            Fargo</label
-          >
-        </div>
-      </details>
+      <div class="scrollable-container">
+        <div id="tech-companies-container"></div>
+        <div id="finance-companies-container"></div>
+      </div>
     </div>
 
-    <!-- Restored Experience Tiers -->
     <div class="section-card">
       <div class="section-title">Logistics & Tiers</div>
       <div class="form-group">
@@ -549,11 +112,14 @@
         class="form-group"
         style="
           margin-top: 14px;
-          border-top: 1px solid var(--border-color);
+          border-top: 1px solid var(--card-border);
           padding-top: 12px;
         "
       >
-        <label>Experience Tier</label>
+        <label
+          style="font-size: 11px; font-weight: 600; color: var(--text-muted)"
+          >Experience Tier</label
+        >
         <div class="checkbox-grid">
           <label class="checkbox-label"
             ><input type="checkbox" value="1" class="exp-cb" />
@@ -574,17 +140,13 @@
       </div>
     </div>
 
-    <button class="btn btn-primary" id="launchBtn">
-      Execute Target Search
-    </button>
-    <button
-      class="btn btn-secondary"
-      id="saveBtn"
-      style="width: 100%; margin-top: 8px"
-    >
-      Save Settings
-    </button>
-    <div id="status">Settings saved!</div>
+    <div class="action-bar">
+      <div id="status">Settings saved!</div>
+      <button class="btn btn-secondary" id="saveBtn">Save</button>
+      <button class="btn btn-primary" id="launchBtn">
+        Execute Target Search
+      </button>
+    </div>
 
     <script src="popup.js"></script>
   </body>

@@ -1,6 +1,255 @@
+// ==========================================
+// 1. THE DATABASE
+// ==========================================
+
+const TECH_COMPANIES = [
+  {
+    id: "group-india",
+    title: "Indian Unicorns",
+    companies: [
+      { name: "Flipkart", id: "321062" },
+      { name: "Swiggy", id: "9252341" },
+      { name: "Zomato", id: "422813" },
+      { name: "Razorpay", id: "3788927" },
+      { name: "PhonePe", id: "10479149" },
+      { name: "Cred", id: "14485479" },
+      { name: "Ola", id: "2580522" },
+      { name: "Pine Labs", id: "554421" },
+    ],
+  },
+  {
+    id: "group-data",
+    title: "Modern Data & AI",
+    companies: [
+      { name: "Databricks", id: "3477522" },
+      { name: "MongoDB", id: "783611" },
+      { name: "OpenAI", id: "11130470" },
+      { name: "Snowflake", id: "3653845" },
+      { name: "Glean", id: "74882602" },
+      { name: "Cloudflare", id: "407222" },
+    ],
+  },
+  {
+    id: "group-hft",
+    title: "HFTs & Quant",
+    companies: [
+      { name: "Graviton", id: "9329182" },
+      { name: "AlphaGrep", id: "2282504" },
+      { name: "Quadeye", id: "10167707" },
+      { name: "Tower Research", id: "36865" },
+      { name: "APT Portfolio", id: "2691313" },
+      { name: "WorldQuant", id: "276383" },
+      { name: "IMC Trading", id: "200030" },
+      { name: "Optiver", id: "13216" },
+      { name: "Jane Street", id: "1713404" },
+      { name: "Citadel", id: "163056" },
+    ],
+  },
+  {
+    id: "group-saas",
+    title: "FinTech & Global SaaS",
+    companies: [
+      { name: "Stripe", id: "2135371" },
+      { name: "Rippling", id: "17988315" },
+      { name: "Plaid", id: "2684737" },
+      { name: "Coinbase", id: "2857634" },
+      { name: "Rubrik", id: "4840301" },
+      { name: "Cohesity", id: "3750699" },
+      { name: "Atlassian", id: "22688" },
+      { name: "Uber", id: "1815218" },
+      { name: "Airbnb", id: "309694" },
+      { name: "Salesforce", id: "3185" },
+      { name: "PayPal", id: "1482" },
+    ],
+  },
+  {
+    id: "group-faang",
+    title: "FAANG & Big Tech",
+    companies: [
+      { name: "Google", id: "1441" },
+      { name: "Microsoft", id: "1035" },
+      { name: "Amazon", id: "1586" },
+      { name: "Meta", id: "10667" },
+      { name: "Apple", id: "162479" },
+      { name: "Netflix", id: "165158" },
+    ],
+  },
+  {
+    id: "group-finance-tech",
+    title: "Top Finance & Banks (Tech)",
+    companies: [
+      { name: "D. E. Shaw", id: "2408262" },
+      { name: "Goldman Sachs", id: "1382" },
+      { name: "JPMorgan", id: "1067" },
+      { name: "Morgan Stanley", id: "497017" },
+      { name: "Barclays", id: "1426" },
+      { name: "Wells Fargo", id: "1235" },
+    ],
+  },
+];
+
+const FINANCE_COMPANIES = [
+  {
+    id: "group-mba-consulting",
+    title: "Tier 1 & Big 4 Consulting",
+    companies: [
+      { name: "McKinsey", id: "1109" },
+      { name: "BCG", id: "1059" },
+      { name: "Bain & Co", id: "1077" },
+      { name: "Deloitte", id: "1027" },
+      { name: "EY", id: "1016" },
+      { name: "PwC", id: "1001" },
+      { name: "KPMG", id: "1039" },
+      { name: "Oliver Wyman", id: "5844" },
+      { name: "Kearney", id: "3235" },
+      { name: "Roland Berger", id: "2471" },
+      { name: "L.E.K.", id: "5849" },
+      { name: "Alvarez & Marsal", id: "16244" },
+      { name: "Strategy&", id: "3550055" },
+    ],
+  },
+  {
+    id: "group-mba-banking",
+    title: "Elite Investment Banks",
+    companies: [
+      { name: "Goldman Sachs", id: "1382" },
+      { name: "JPMorgan", id: "1068" },
+      { name: "Morgan Stanley", id: "1451" },
+      { name: "Citi", id: "1144" },
+      { name: "Bank of America", id: "1123" },
+      { name: "Barclays", id: "1426" },
+      { name: "UBS", id: "1139" },
+      { name: "Deutsche Bank", id: "1225" },
+      { name: "HSBC", id: "1009" },
+      { name: "BNP Paribas", id: "1848" },
+      { name: "Lazard", id: "4217" },
+      { name: "Evercore", id: "11467" },
+      { name: "Jefferies", id: "9811" },
+      { name: "Nomura", id: "4056" },
+    ],
+  },
+  {
+    id: "group-mba-pe",
+    title: "PE, VC & Asset Mgt",
+    companies: [
+      { name: "Blackstone", id: "1956" },
+      { name: "KKR", id: "12739" },
+      { name: "Carlyle", id: "18118" },
+      { name: "BlackRock", id: "10471" },
+      { name: "Vanguard", id: "33506" },
+      { name: "Apollo Global", id: "16186" },
+      { name: "Sequoia (Peak XV)", id: "165842" },
+      { name: "Warburg Pincus", id: "167098" },
+      { name: "General Atlantic", id: "64753" },
+      { name: "SoftBank", id: "12228" },
+      { name: "Fidelity", id: "2088" },
+      { name: "PIMCO", id: "6636" },
+      { name: "Citadel", id: "163056" },
+      { name: "Point72", id: "3848773" },
+      { name: "Brookfield", id: "162985" },
+    ],
+  },
+  {
+    id: "group-mba-indian",
+    title: "Top Indian Financials",
+    companies: [
+      { name: "HDFC Bank", id: "3851" },
+      { name: "ICICI Bank", id: "3614" },
+      { name: "Kotak Bank", id: "19302" },
+      { name: "Axis Bank", id: "11902" },
+      { name: "Bajaj Finserv", id: "1434316" },
+      { name: "Zerodha", id: "2548812" },
+      { name: "SBI", id: "11414" },
+      { name: "Groww", id: "13615962" },
+      { name: "IDFC FIRST", id: "10427848" },
+      { name: "Motilal Oswal", id: "112111" },
+    ],
+  },
+];
+
+// ==========================================
+// 2. THE ENGINE
+// ==========================================
+
 document.addEventListener("DOMContentLoaded", () => {
+  // ==========================================
+  // THEME TOGGLE LOGIC
+  // ==========================================
+  const themeToggle = document.getElementById("themeToggle");
+
+  // 1. Fetch saved theme and apply it immediately
+  chrome.storage.local.get(["theme"], (data) => {
+    const isDark = data.theme === "dark"; // Default to light if not set
+    if (isDark) {
+      document.documentElement.setAttribute("data-theme", "dark");
+      themeToggle.textContent = "☀️";
+    } else {
+      document.documentElement.setAttribute("data-theme", "light");
+      themeToggle.textContent = "🌙";
+    }
+  });
+
+  // 2. Listen for clicks on the toggle button
+  if (themeToggle) {
+    themeToggle.addEventListener("click", () => {
+      const isDark =
+        document.documentElement.getAttribute("data-theme") === "dark";
+      const newTheme = isDark ? "light" : "dark";
+
+      // Update DOM and Button icon
+      document.documentElement.setAttribute("data-theme", newTheme);
+      themeToggle.textContent = isDark ? "🌙" : "☀️";
+
+      // Save preference
+      chrome.storage.local.set({ theme: newTheme });
+    });
+  }
+  // ==========================================
+
+  function renderCompanyGroups(containerId, groups, isFinance) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    if (!groups || !Array.isArray(groups)) {
+      container.innerHTML = `<div style="padding: 12px; margin: 10px 0; color: #d93025; background: #fce8e6; border: 1px solid #fad2cf; border-radius: 5px; font-size: 12px; font-weight: 600;">Data load error.</div>`;
+      return;
+    }
+
+    let html = "";
+    groups.forEach((group) => {
+      let groupClass = isFinance ? "finance-group" : "tech-group";
+      let displayStyle = isFinance ? 'style="display: none;"' : "";
+
+      html += `
+        <details id="${group.id}" class="${groupClass}" ${displayStyle}>
+          <summary>
+            <span class="summary-title">${group.title}</span>
+            <span class="select-all-wrapper"><input type="checkbox" class="tier-select-all" /> All</span>
+          </summary>
+          <div class="inner-grid">
+      `;
+      group.companies.forEach((company) => {
+        html += `<label class="checkbox-label"><input type="checkbox" value="${company.id}" class="famous-cb" /> ${company.name}</label>`;
+      });
+      html += `</div></details>`;
+    });
+
+    container.innerHTML = html;
+  }
+
+  try {
+    renderCompanyGroups("tech-companies-container", TECH_COMPANIES, false);
+  } catch (e) {
+    console.error(e);
+  }
+  try {
+    renderCompanyGroups("finance-companies-container", FINANCE_COMPANIES, true);
+  } catch (e) {
+    console.error(e);
+  }
+
   let currentProfile = "profile1";
-  const STORAGE_VERSION = "v13_experience_restored";
+  const STORAGE_VERSION = "v21_precision_ui";
 
   const AGENCY_BURN_LIST = [
     "Infosys",
@@ -60,11 +309,35 @@ document.addEventListener("DOMContentLoaded", () => {
       experience: [],
       workplace: ["1", "3"],
     },
+    profile5: {
+      name: "Investment Banking Analyst",
+      jobTitle:
+        '("Financial Analyst" OR "Investment Banking Analyst" OR "Corporate Finance" OR "Equity Research")',
+      strictTitle: false,
+      blockAgencies: false,
+      location: "Bengaluru",
+      timeFilter: "604800",
+      famous: [],
+      experience: ["1", "2", "3"],
+      workplace: ["1", "3"],
+    },
+    profile6: {
+      name: "Management Consulting",
+      jobTitle:
+        '("Management Consultant" OR "Strategy Consultant" OR "Associate Consultant" OR "Business Analyst")',
+      strictTitle: false,
+      blockAgencies: false,
+      location: "Bengaluru",
+      timeFilter: "604800",
+      famous: [],
+      experience: ["1", "2", "3"],
+      workplace: ["1", "3"],
+    },
   };
 
   try {
     chrome.storage.local.get(
-      ["profiles", "lastActiveProfile", "storageVersion"],
+      ["profiles", "lastActiveProfile", "storageVersion", "activeStream"],
       (data) => {
         let storedProfiles = data.profiles;
         if (data.storageVersion !== STORAGE_VERSION || !storedProfiles) {
@@ -74,10 +347,13 @@ document.addEventListener("DOMContentLoaded", () => {
             profiles: defaultProfiles,
             lastActiveProfile: currentProfile,
             storageVersion: STORAGE_VERSION,
+            activeStream: "tech",
           });
         } else {
           currentProfile = data.lastActiveProfile || "profile1";
         }
+
+        switchStream(data.activeStream || "tech", false);
         updateDropdownLabels(storedProfiles);
         const selectEl = document.getElementById("profileSelect");
         if (selectEl) selectEl.value = currentProfile;
@@ -216,14 +492,14 @@ document.addEventListener("DOMContentLoaded", () => {
         saveCurrentFormState(() => {
           let baseUrl = "https://www.linkedin.com/jobs/search/?";
           let params = new URLSearchParams();
-
           let titleInput = document.getElementById("jobTitle").value.trim();
           let finalKeywords = titleInput;
 
           if (titleInput && document.getElementById("strictTitle").checked) {
-            if (!titleInput.startsWith('"')) finalKeywords = `"${titleInput}"`;
+            if (!titleInput.startsWith('"') && !titleInput.startsWith("(")) {
+              finalKeywords = `"${titleInput}"`;
+            }
           }
-
           if (document.getElementById("blockAgencies").checked) {
             let burnString = AGENCY_BURN_LIST.map(
               (agency) => `"${agency}"`,
@@ -276,10 +552,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const innerGrid = card.querySelector(".inner-grid");
 
     if (selectAllCheckbox && childCheckboxes.length > 0) {
-      selectAllCheckbox.addEventListener("click", (e) => {
-        e.stopPropagation();
-      });
-
+      selectAllCheckbox.addEventListener("click", (e) => e.stopPropagation());
       selectAllCheckbox.addEventListener("change", () => {
         childCheckboxes.forEach((cb) => {
           cb.checked = selectAllCheckbox.checked;
@@ -296,4 +569,90 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   });
+
+  const tabBtech = document.getElementById("tab-btech");
+  const tabFinance = document.getElementById("tab-finance");
+
+  function switchStream(stream, triggerSave = true) {
+    const switchLogic = () => {
+      if (stream === "tech") {
+        tabBtech.classList.add("active");
+        tabFinance.classList.remove("active");
+
+        document
+          .querySelectorAll(".tech-opt")
+          .forEach((opt) => (opt.style.display = ""));
+        document
+          .querySelectorAll(".finance-opt")
+          .forEach((opt) => (opt.style.display = "none"));
+        document
+          .querySelectorAll(".tech-group")
+          .forEach((el) => (el.style.display = ""));
+        document
+          .querySelectorAll(".finance-group")
+          .forEach((el) => (el.style.display = "none"));
+
+        if (
+          triggerSave &&
+          !currentProfile.startsWith("profile1") &&
+          !currentProfile.startsWith("profile2") &&
+          !currentProfile.startsWith("profile3") &&
+          !currentProfile.startsWith("profile4")
+        ) {
+          currentProfile = "profile1";
+        }
+      } else {
+        tabFinance.classList.add("active");
+        tabBtech.classList.remove("active");
+
+        document
+          .querySelectorAll(".tech-opt")
+          .forEach((opt) => (opt.style.display = "none"));
+        document
+          .querySelectorAll(".finance-opt")
+          .forEach((opt) => (opt.style.display = ""));
+        document
+          .querySelectorAll(".tech-group")
+          .forEach((el) => (el.style.display = "none"));
+        document
+          .querySelectorAll(".finance-group")
+          .forEach((el) => (el.style.display = "none"));
+
+        if (triggerSave && !["profile5", "profile6"].includes(currentProfile)) {
+          currentProfile = "profile5";
+        }
+      }
+
+      if (triggerSave) {
+        const selectEl = document.getElementById("profileSelect");
+        if (selectEl) selectEl.value = currentProfile;
+        chrome.storage.local.set({
+          lastActiveProfile: currentProfile,
+          activeStream: stream,
+        });
+        chrome.storage.local.get(["profiles"], (data) => {
+          populateForm((data.profiles || defaultProfiles)[currentProfile]);
+        });
+      }
+    };
+
+    if (triggerSave) {
+      saveCurrentFormState(switchLogic);
+    } else {
+      switchLogic();
+    }
+  }
+
+  if (tabBtech) {
+    tabBtech.addEventListener("click", (e) => {
+      e.preventDefault();
+      switchStream("tech", true);
+    });
+  }
+  if (tabFinance) {
+    tabFinance.addEventListener("click", (e) => {
+      e.preventDefault();
+      switchStream("finance", true);
+    });
+  }
 });
