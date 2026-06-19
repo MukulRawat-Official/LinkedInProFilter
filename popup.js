@@ -93,19 +93,17 @@ const FINANCE_COMPANIES = [
     id: "group-mba-consulting",
     title: "Tier 1 & Big 4 Consulting",
     companies: [
-      { name: "McKinsey", id: "1109" },
-      { name: "BCG", id: "1059" },
-      { name: "Bain & Co", id: "1077" },
-      { name: "Deloitte", id: "1027" },
-      { name: "EY", id: "1016" },
-      { name: "PwC", id: "1001" },
-      { name: "KPMG", id: "1039" },
-      { name: "Oliver Wyman", id: "5844" },
-      { name: "Kearney", id: "3235" },
-      { name: "Roland Berger", id: "2471" },
-      { name: "L.E.K.", id: "5849" },
-      { name: "Alvarez & Marsal", id: "16244" },
-      { name: "Strategy&", id: "3550055" },
+      { name: "McKinsey", id: "1371" },
+      { name: "BCG", id: "1784" },
+      { name: "Bain & Co", id: "2114" },
+      { name: "Deloitte", id: "1038" },
+      { name: "EY", id: "1073" },
+      { name: "PwC", id: "1044" },
+      { name: "KPMG", id: "1079" },
+      { name: "Kearney", id: "2196" },
+      { name: "Roland Berger", id: "3950" },
+      { name: "L.E.K.", id: "5210" },
+      { name: "Strategy&", id: "224605" },
     ],
   },
   {
@@ -113,56 +111,53 @@ const FINANCE_COMPANIES = [
     title: "Elite Investment Banks",
     companies: [
       { name: "Goldman Sachs", id: "1382" },
-      { name: "JPMorgan", id: "1068" },
-      { name: "Morgan Stanley", id: "1451" },
-      { name: "Citi", id: "1144" },
+      { name: "JPMorgan", id: "1067" },
+      { name: "Morgan Stanley", id: "497017" },
+      { name: "Citi", id: "11448" },
       { name: "Bank of America", id: "1123" },
       { name: "Barclays", id: "1426" },
-      { name: "UBS", id: "1139" },
-      { name: "Deutsche Bank", id: "1225" },
-      { name: "HSBC", id: "1009" },
-      { name: "BNP Paribas", id: "1848" },
-      { name: "Lazard", id: "4217" },
-      { name: "Evercore", id: "11467" },
-      { name: "Jefferies", id: "9811" },
-      { name: "Nomura", id: "4056" },
+      { name: "UBS", id: "1214" },
+      { name: "Deutsche Bank", id: "1262" },
+      { name: "HSBC", id: "1241" },
+      { name: "BNP Paribas", id: "1508" },
+      { name: "Lazard", id: "4757" },
+      { name: "Evercore", id: "163732" },
+      { name: "Jefferies", id: "5154" },
+      { name: "Nomura", id: "4440" },
     ],
   },
   {
     id: "group-mba-pe",
     title: "PE, VC & Asset Mgt",
     companies: [
-      { name: "Blackstone", id: "1956" },
-      { name: "KKR", id: "12739" },
-      { name: "Carlyle", id: "18118" },
-      { name: "BlackRock", id: "10471" },
-      { name: "Vanguard", id: "33506" },
-      { name: "Apollo Global", id: "16186" },
-      { name: "Sequoia (Peak XV)", id: "165842" },
-      { name: "Warburg Pincus", id: "167098" },
-      { name: "General Atlantic", id: "64753" },
-      { name: "SoftBank", id: "12228" },
-      { name: "Fidelity", id: "2088" },
-      { name: "PIMCO", id: "6636" },
+      { name: "Blackstone", id: "7834" },
+      { name: "Carlyle", id: "7378" },
+      { name: "Vanguard", id: "3184" },
+      { name: "Apollo Global", id: "48414" },
+      { name: "Warburg Pincus", id: "12110" },
+      { name: "General Atlantic", id: "15910" },
+      { name: "SoftBank", id: "4786649" },
+      { name: "Fidelity", id: "1307" },
+      { name: "PIMCO", id: "7970" },
       { name: "Citadel", id: "163056" },
-      { name: "Point72", id: "3848773" },
-      { name: "Brookfield", id: "162985" },
+      { name: "Point72", id: "5250800" },
+      { name: "Brookfield", id: "40118" },
     ],
   },
   {
     id: "group-mba-indian",
     title: "Top Indian Financials",
     companies: [
-      { name: "HDFC Bank", id: "3851" },
-      { name: "ICICI Bank", id: "3614" },
-      { name: "Kotak Bank", id: "19302" },
-      { name: "Axis Bank", id: "11902" },
-      { name: "Bajaj Finserv", id: "1434316" },
-      { name: "Zerodha", id: "2548812" },
-      { name: "SBI", id: "11414" },
-      { name: "Groww", id: "13615962" },
-      { name: "IDFC FIRST", id: "10427848" },
-      { name: "Motilal Oswal", id: "112111" },
+      { name: "HDFC Bank", id: "164151" },
+      { name: "ICICI Bank", id: "2967" },
+      { name: "Kotak Bank", id: "5632" },
+      { name: "Axis Bank", id: "162609" },
+      { name: "Bajaj Finserv", id: "1092003" },
+      { name: "Zerodha", id: "2160857" },
+      { name: "SBI", id: "166135" },
+      { name: "Groww", id: "10813156" },
+      { name: "IDFC FIRST", id: "21175" },
+      { name: "Motilal Oswal", id: "36345" },
     ],
   },
 ];
@@ -172,6 +167,28 @@ const FINANCE_COMPANIES = [
 // ==========================================
 
 document.addEventListener("DOMContentLoaded", () => {
+  // ==========================================
+  // RENDERING LOGIC
+  // ==========================================
+  function render(containerId, groups, isFinance) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    let html = "";
+    groups.forEach((group) => {
+      html += `
+        <details id="${group.id}" class="${isFinance ? "finance-group" : "tech-group"}" style="${isFinance ? "display: none;" : ""}">
+          <summary>${group.title} <span class="select-all-wrapper"><input type="checkbox" class="tier-select-all" /> All</span></summary>
+          <div class="inner-grid">${group.companies.map((c) => `<label class="checkbox-label"><input type="checkbox" value="${c.id}" class="famous-cb" /> ${c.name}</label>`).join("")}</div>
+        </details>`;
+    });
+    container.innerHTML = html;
+  }
+
+  render("tech-companies-container", TECH_COMPANIES, false);
+  render("finance-companies-container", FINANCE_COMPANIES, true);
+
+  // ==========================================
+
   // ==========================================
   // THEME TOGGLE LOGIC
   // ==========================================
@@ -574,6 +591,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const tabFinance = document.getElementById("tab-finance");
 
   function switchStream(stream, triggerSave = true) {
+    const tabBtech = document.getElementById("tab-btech");
+    const tabFinance = document.getElementById("tab-finance");
+    const selectEl = document.getElementById("profileSelect");
+
     const switchLogic = () => {
       if (stream === "tech") {
         tabBtech.classList.add("active");
@@ -585,6 +606,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document
           .querySelectorAll(".finance-opt")
           .forEach((opt) => (opt.style.display = "none"));
+
         document
           .querySelectorAll(".tech-group")
           .forEach((el) => (el.style.display = ""));
@@ -594,10 +616,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (
           triggerSave &&
-          !currentProfile.startsWith("profile1") &&
-          !currentProfile.startsWith("profile2") &&
-          !currentProfile.startsWith("profile3") &&
-          !currentProfile.startsWith("profile4")
+          !["profile1", "profile2", "profile3", "profile4"].includes(
+            currentProfile,
+          )
         ) {
           currentProfile = "profile1";
         }
@@ -611,21 +632,23 @@ document.addEventListener("DOMContentLoaded", () => {
         document
           .querySelectorAll(".finance-opt")
           .forEach((opt) => (opt.style.display = ""));
+
         document
           .querySelectorAll(".tech-group")
           .forEach((el) => (el.style.display = "none"));
+        // FIX: CHANGED TO "" TO SHOW THE FINANCE GROUPS
         document
           .querySelectorAll(".finance-group")
-          .forEach((el) => (el.style.display = "none"));
+          .forEach((el) => (el.style.display = ""));
 
         if (triggerSave && !["profile5", "profile6"].includes(currentProfile)) {
           currentProfile = "profile5";
         }
       }
 
+      if (selectEl) selectEl.value = currentProfile;
+
       if (triggerSave) {
-        const selectEl = document.getElementById("profileSelect");
-        if (selectEl) selectEl.value = currentProfile;
         chrome.storage.local.set({
           lastActiveProfile: currentProfile,
           activeStream: stream,
